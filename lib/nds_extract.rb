@@ -34,6 +34,14 @@ end
 # Your code after this point
 
 def movies_with_director_key(name, movies_collection)
+  new_hash = []
+  movies_collection.each do |movie|
+    new_hash << movie_with_director_name(name,movie)
+  end
+  new_hash
+  
+  
+  
   # GOAL: For each Hash in an Array (movies_collection), provide a collection
   # of movies and a directors name to the movie_with_director_name method
   # and accumulate the returned Array of movies into a new Array that's
@@ -48,10 +56,24 @@ def movies_with_director_key(name, movies_collection)
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
+  
 end
 
 
 def gross_per_studio(collection)
+ total={}
+ index=0 
+ while index < collection.size do 
+   studio_name = collection[index][:studio]
+   gross = collection[index][:worldwide_gross]
+   if total[studio_name] 
+     total[studio_name]+=gross
+   else
+     total[studio_name]=gross
+ end 
+ index+=1 
+ end
+ total
   # GOAL: Given an Array of Hashes where each Hash represents a movie,
   # return a Hash that includes the total worldwide_gross of all the movies from
   # each studio.
@@ -66,6 +88,15 @@ def gross_per_studio(collection)
 end
 
 def movies_with_directors_set(source)
+  new_array =[]
+  index = 0 
+  while index < source.size do 
+    name = source[index][:name]
+    movies = source[index][:movies]
+    new_array << movies_with_director_key(name,movies)
+    index +=1 
+  end
+  new_array
   # GOAL: For each director, find their :movies Array and stick it in a new Array
   #
   # INPUT:
